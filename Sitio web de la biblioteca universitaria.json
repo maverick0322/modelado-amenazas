@@ -1,0 +1,146 @@
+{
+  "version": "2.2",
+  "summary": {
+    "title": "Sitio web de la biblioteca universitaria",
+    "owner": "Erickmel Vázquez",
+    "description": "El sitio web de la biblioteca universitaria es la primera implementación de un sitio web para brindar servicios en línea a los bibliotecarios y usuarios de la biblioteca (estudiantes y personal universitario). Como esta es la primera implementación del sitio web, la funcionalidad será limitada. Serán tres usuarios de la aplicación:\n1. Estudiantes\n2. Personal\n3. Bibliotecarios\nEl personal y los estudiantes podrán iniciar sesión y buscar libros, y los miembros del personal podrán solicitar libros. Los bibliotecarios podrán iniciar sesión, agregar libros, agregar usuarios y buscar libros."
+  },
+  "detail": {
+    "contributors": [
+      {
+        "name": "Erickmel Vázquez"
+      }
+    ],
+    "diagrams": [
+      {
+        "title": "Diagrama de flujo de datos para el sitio web de la biblioteca universitaria",
+        "diagramType": "STRIDE",
+        "id": 1,
+        "cells": [
+          {
+            "type": "tm.Actor",
+            "id": "u1",
+            "position": { "x": 100, "y": 100 },
+            "size": { "width": 160, "height": 80 },
+            "attrs": { "text": { "text": "Usuarios" } },
+            "threats": [
+              {
+                "status": "Open",
+                "severity": "Low",
+                "title": "Suplantación de identidad",
+                "type": "Spoofing",
+                "description": "Acción de amenaza destinada a acceder y utilizar las credenciales de otro usuario, como el nombre de usuario y la contraseña.",
+                "mitigation": "1. Autenticación adecuada\n2. Proteger datos secretos\n3. No almacenar secretos"
+              }
+            ]
+          },
+          {
+            "type": "tm.Actor",
+            "id": "b1",
+            "position": { "x": 500, "y": 100 },
+            "size": { "width": 160, "height": 80 },
+            "attrs": { "text": { "text": "Bibliotecario" } }
+          },
+          {
+            "type": "tm.Process",
+            "id": "p1",
+            "position": { "x": 300, "y": 250 },
+            "size": { "width": 120, "height": 120 },
+            "attrs": { "text": { "text": "Sitio web\nbiblioteca" } }
+          },
+          {
+            "type": "tm.Store",
+            "id": "s1",
+            "position": { "x": 50, "y": 500 },
+            "size": { "width": 160, "height": 80 },
+            "attrs": { "text": { "text": "Páginas web\nen disco" } }
+          },
+          {
+            "type": "tm.Store",
+            "id": "s2",
+            "position": { "x": 300, "y": 500 },
+            "size": { "width": 160, "height": 80 },
+            "attrs": { "text": { "text": "Web Application\nConfig" } }
+          },
+          {
+            "type": "tm.Store",
+            "id": "s3",
+            "position": { "x": 600, "y": 500 },
+            "size": { "width": 160, "height": 80 },
+            "attrs": { "text": { "text": "Base de datos" } }
+          },
+          {
+            "type": "tm.Boundary",
+            "id": "bound1",
+            "source": { "x": 20, "y": 210 },
+            "target": { "x": 750, "y": 210 },
+            "labels": [ { "attrs": { "text": { "text": "Trust Boundary" } } } ]
+          },
+          {
+            "type": "tm.Boundary",
+            "id": "bound2",
+            "source": { "x": 450, "y": 300 },
+            "target": { "x": 600, "y": 700 },
+            "labels": [ { "attrs": { "text": { "text": "Trust Boundary" } } } ]
+          },
+          {
+            "type": "tm.Flow",
+            "id": "f1",
+            "source": { "id": "u1" },
+            "target": { "id": "p1" },
+            "labels": [ { "position": 0.5, "attrs": { "text": { "text": "Web Request" } } } ]
+          },
+          {
+            "type": "tm.Flow",
+            "id": "f2",
+            "source": { "id": "p1" },
+            "target": { "id": "u1" },
+            "labels": [ { "position": 0.5, "attrs": { "text": { "text": "Web Response" } } } ]
+          },
+          {
+            "type": "tm.Flow",
+            "id": "f3",
+            "source": { "id": "b1" },
+            "target": { "id": "p1" },
+            "labels": [ { "position": 0.5, "attrs": { "text": { "text": "Web Request" } } } ]
+          },
+          {
+            "type": "tm.Flow",
+            "id": "f4",
+            "source": { "id": "p1" },
+            "target": { "id": "b1" },
+            "labels": [ { "position": 0.5, "attrs": { "text": { "text": "Web Response" } } } ]
+          },
+          {
+            "type": "tm.Flow",
+            "id": "f5",
+            "source": { "id": "s1" },
+            "target": { "id": "p1" },
+            "labels": [ { "position": 0.5, "attrs": { "text": { "text": "Páginas" } } } ]
+          },
+          {
+            "type": "tm.Flow",
+            "id": "f6",
+            "source": { "id": "s2" },
+            "target": { "id": "p1" },
+            "labels": [ { "position": 0.5, "attrs": { "text": { "text": "Lee web app config" } } } ]
+          },
+          {
+            "type": "tm.Flow",
+            "id": "f7",
+            "source": { "id": "p1" },
+            "target": { "id": "s3" },
+            "labels": [ { "position": 0.5, "attrs": { "text": { "text": "Queries" } } } ]
+          },
+          {
+            "type": "tm.Flow",
+            "id": "f8",
+            "source": { "id": "s3" },
+            "target": { "id": "p1" },
+            "labels": [ { "position": 0.5, "attrs": { "text": { "text": "Resultados Web App Query" } } } ]
+          }
+        ]
+      }
+    ]
+  }
+}
